@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Lamp</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <style>
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #121417;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.4s;
+            --on: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        /* ------------ REAL LAMP ------------ */
+        .lamp-container {
+            cursor: pointer;
+            position: relative;
+        }
+
+        .lamp {
+            width: 160px;
+            height: 260px;
+            position: relative;
+        }
+
+        .lamp-head {
+            width: 160px;
+            height: 70px;
+            background: #fff;
+            border-radius: 80px 80px 0 0;
+            box-shadow: 0 0 45px rgba(255, 255, 180, calc(var(--on)));
+            transition: 0.3s;
+        }
+
+        .lamp-rod {
+            width: 14px;
+            height: 160px;
+            background: #e0e0e0;
+            margin: auto;
+        }
+
+        .lamp-base {
+            width: 120px;
+            height: 18px;
+            background: #cfcfcf;
+            margin: auto;
+            border-radius: 10px;
+        }
+
+        /* ------------ LOGIN BOX ------------ */
+
+        .login-box {
+            width: 300px;
+            padding: 25px;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(8px);
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            opacity: 0.3;
+            transform: translateY(40px);
+            transition: 0.5s;
+        }
+
+        .login-box.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: gold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="lamp-container" onclick="toggleLamp()">
+            <div class="lamp">
+                <div class="lamp-head"></div>
+                <div class="lamp-rod"></div>
+                <div class="lamp-base"></div>
+            </div>
+        </div>
+
+        <div class="login-box" id="loginBox">
+            <h2>Welcome</h2>
+            <input type="text" placeholder="Username">
+            <input type="password" placeholder="Password">
+            <button class="btn">Sign In</button>
+        </div>
+
+    </div>
+
+    <audio id="clickSound" src="https://assets.mixkit.co/sfx/preview/mixkit-switch-click-1125.mp3"></audio>
+
+    <script>
+        let isOn = false;
+
+        const body = document.body;
+        const loginBox = document.getElementById("loginBox");
+        const clickSound = document.getElementById("clickSound");
+
+        function toggleLamp() {
+            isOn = !isOn;
+
+            clickSound.play();
+
+            document.body.style.setProperty("--on", isOn ? 1 : 0);
+
+            if (isOn) {
+                loginBox.classList.add("active");
+                gsap.to(body, { backgroundColor: "#1c1f24", duration: 0.4 });
+            } else {
+                loginBox.classList.remove("active");
+                gsap.to(body, { backgroundColor: "#121417", duration: 0.4 });
+            }
+        }
+    </script>s
+
+</body>
+</html>
